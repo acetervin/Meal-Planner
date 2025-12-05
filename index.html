@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student 350 Meal Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-gray-800">
+
+    <!-- App Container -->
+    <div class="max-w-4xl mx-auto min-h-screen flex flex-col bg-white shadow-lg">
+
+        <!-- Header -->
+        <header class="bg-slate-900 text-white p-6 sticky top-0 z-50 shadow-md">
+            <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">🎓 Student 350 Planner</h1>
+                    <p class="text-slate-400 text-sm mt-1">Balanced Diet &bull; 350 KSH/Day Limit &bull; No Stress</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center space-x-4 bg-slate-800 px-4 py-2 rounded-lg">
+                    <div class="text-center">
+                        <span class="block text-xs text-slate-400 uppercase">Daily Budget</span>
+                        <span class="font-bold text-green-400">350 KSH</span>
+                    </div>
+                    <div class="h-8 w-px bg-slate-600"></div>
+                    <div class="text-center">
+                        <span class="block text-xs text-slate-400 uppercase">Weekly Est.</span>
+                        <span class="font-bold text-amber-400">~1,970 KSH</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex border-b border-gray-200 bg-gray-50 sticky top-[88px] z-40">
+            <button onclick="switchTab('schedule')" id="tab-schedule" class="flex-1 py-4 text-center text-sm transition-colors tab-active">
+                📅 Weekly Schedule
+            </button>
+            <button onclick="switchTab('budget')" id="tab-budget" class="flex-1 py-4 text-center text-sm transition-colors tab-inactive">
+                📊 Budget Analysis
+            </button>
+            <button onclick="switchTab('guide')" id="tab-guide" class="flex-1 py-4 text-center text-sm transition-colors tab-inactive">
+                🛒 Shopping & Tips
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow p-4 md:p-6 bg-gray-50 overflow-y-auto">
+
+            <!-- SECTION: WEEKLY SCHEDULE -->
+            <section id="view-schedule" class="space-y-6 animate-fade-in">
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-800 mb-6">
+                    <p><strong>Goal:</strong> At least one fully balanced meal (Starch + Protein + Vitamin) every day. Cost savings on Monday/Sunday pay for the treats on Friday/Saturday.</p>
+                </div>
+
+                <!-- Day Selector (Mobile/Desktop Hybrid) -->
+                <div class="grid grid-cols-7 gap-2 mb-6 overflow-x-auto pb-2" id="day-selector">
+                    <!-- JS will populate these buttons -->
+                </div>
+
+                <!-- Active Day Detail Card -->
+                <div id="day-detail-card" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300">
+                    <!-- Dynamic Content Loaded Here via JS -->
+                    <div class="p-8 text-center text-gray-500">Select a day to view the plan</div>
+                </div>
+
+                <!-- Quick Strategy Note -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-700 mb-2">🥤 Hydration Strategy</h3>
+                        <p class="text-sm text-gray-600">A drink is added to lunch if dinner doesn't have one. On "tight" budget days, we stick to soda/juice. On "cheap" days, we upgrade to big Yoghurt/Mala.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-700 mb-2">🥬 The Vitamin Rule</h3>
+                        <p class="text-sm text-gray-600">Never skip the greens. Cabbage is your budget hero (buy on Monday, eat twice). Spinach spoils fast, so buy it fresh on the day.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: BUDGET ANALYSIS -->
+            <section id="view-budget" class="hidden space-y-8 animate-fade-in">
+                <div class="text-center max-w-2xl mx-auto mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Where is the money going?</h2>
+                    <p class="text-gray-600 text-sm mt-1">We track every shilling to ensure the Friday treats don't break the bank.</p>
+                </div>
+
+                <!-- Chart 1: Daily Spend -->
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Daily Cost vs. 350 KSH Limit</h3>
+                    <div class="chart-container">
+                        <canvas id="dailyCostChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">Notice how Monday's savings cover Saturday's over-spend.</p>
+                </div>
+
+                <!-- Chart 2: Category Breakdown -->
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Expense Categories</h3>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Pricing Reference Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50">
+                        <h3 class="font-bold text-gray-700">Market Price List</h3>
+                    </div>
+                    <div class="divide-y divide-gray-100">
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Chicken Wrap + Fries</span><span class="font-mono font-bold">350 KSH</span></div>
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Shawarma</span><span class="font-mono font-bold">300 KSH</span></div>
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Beef / Liver / Pork (per portion cooked)</span><span class="font-mono font-bold">~200 KSH</span></div>
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Yoghurt (500ml)</span><span class="font-mono font-bold">130 KSH</span></div>
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Wings / Drumsticks</span><span class="font-mono font-bold">200 KSH</span></div>
+                        <div class="flex justify-between px-6 py-3 text-sm"><span class="text-gray-600">Bhajia / Fries</span><span class="font-mono font-bold">100 KSH</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: SHOPPING & TIPS -->
+            <section id="view-guide" class="hidden space-y-6 animate-fade-in">
+                
+                <!-- Shopping Lists -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Inventory -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="text-2xl">🏠</span>
+                            <h3 class="font-bold text-gray-800">Pantry Essentials</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">Ensure you have these in stock before the week starts.</p>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Rice</li>
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Maize Flour (Unga)</li>
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Ndengu (Green Grams)</li>
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Beans</li>
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Eggs</li>
+                            <li class="flex items-center"><span class="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-2 text-xs">✓</span> Cooking Oil & Salt</li>
+                        </ul>
+                    </div>
+
+                    <!-- To Buy -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="text-2xl">🛒</span>
+                            <h3 class="font-bold text-gray-800">Weekly Shopping List</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">Buy these fresh or on the specific day.</p>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <span class="mr-2">🥩</span>
+                                <div><span class="font-semibold">Meats:</span> Beef (Tue/Wed), Liver (Thu), Pork (Sat).</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">🥬</span>
+                                <div><span class="font-semibold">Veggies:</span> Cabbage (Mon/Sun), Spinach (Tue/Wed/Thu), Tomatoes/Onions.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="mr-2">🍞</span>
+                                <div><span class="font-semibold">Ready-made:</span> Chapatis (Wed), Bread/Mandazi (Breakfast).</div>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="mr-2">🍎</span>
+                                <div><span class="font-semibold">Fruits/Extras:</span> Bananas, Avocado (Wed), Yoghurt.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recipes Accordion -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100">
+                        <h3 class="font-bold text-lg text-gray-800">⚡ Quick Student Recipes</h3>
+                    </div>
+                    
+                    <!-- Recipe 1 -->
+                    <div class="border-b border-gray-100">
+                        <button class="w-full text-left px-6 py-4 focus:outline-none hover:bg-gray-50 transition-colors flex justify-between items-center" onclick="toggleRecipe('r1')">
+                            <span class="font-semibold text-gray-700">10-Minute Liver (No rubbery meat!)</span>
+                            <span class="text-gray-400" id="icon-r1">+</span>
+                        </button>
+                        <div id="content-r1" class="hidden px-6 pb-4 text-sm text-gray-600 space-y-2 bg-gray-50">
+                            <p>1. Cut liver into small cubes.</p>
+                            <p>2. Fry onions in oil until brown. Add the liver.</p>
+                            <p>3. Cook on <strong>HIGH heat</strong> for only 5-7 minutes. If you cook longer, it gets hard.</p>
+                            <p>4. Add salt and a pinch of chili. Done.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 2 -->
+                    <div class="border-b border-gray-100">
+                        <button class="w-full text-left px-6 py-4 focus:outline-none hover:bg-gray-50 transition-colors flex justify-between items-center" onclick="toggleRecipe('r2')">
+                            <span class="font-semibold text-gray-700">Bhajia Re-Heat Hack</span>
+                            <span class="text-gray-400" id="icon-r2">+</span>
+                        </button>
+                        <div id="content-r2" class="hidden px-6 pb-4 text-sm text-gray-600 space-y-2 bg-gray-50">
+                            <p>1. If your Saturday lunch Bhajias get cold, do not microwave them (they get soggy).</p>
+                            <p>2. Heat a frying pan with <strong>NO oil</strong>.</p>
+                            <p>3. Toss the Bhajias in the hot dry pan for 2 minutes.</p>
+                            <p>4. They will become crispy again.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recipe 3 -->
+                    <div class="border-b border-gray-100">
+                        <button class="w-full text-left px-6 py-4 focus:outline-none hover:bg-gray-50 transition-colors flex justify-between items-center" onclick="toggleRecipe('r3')">
+                            <span class="font-semibold text-gray-700">Ndengu Batch Cooking</span>
+                            <span class="text-gray-400" id="icon-r3">+</span>
+                        </button>
+                        <div id="content-r3" class="hidden px-6 pb-4 text-sm text-gray-600 space-y-2 bg-gray-50">
+                            <p>1. Boil a large amount of Ndengu on Monday or Sunday.</p>
+                            <p>2. Separate into two containers.</p>
+                            <p>3. Fry one half for dinner today.</p>
+                            <p>4. Keep the other half <strong>plain</strong> (boiled only) in the fridge. Fry it fresh on Tuesday or Thursday.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
