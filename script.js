@@ -155,19 +155,27 @@ function init() {
 }
 
 function switchTab(tabId) {
-    // Hide all sections
-    document.getElementById('view-schedule').classList.add('hidden');
-    document.getElementById('view-budget').classList.add('hidden');
-    document.getElementById('view-guide').classList.add('hidden');
-    
-    // Reset tab styles
-    document.getElementById('tab-schedule').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
-    document.getElementById('tab-budget').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
-    document.getElementById('tab-guide').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
+    const views = ['schedule', 'budget', 'guide'];
+    views.forEach(view => {
+        const el = document.getElementById(`view-${view}`);
+        if (el) el.classList.add('hidden');
+    });
 
-    // Show selected
-    document.getElementById(`view-${tabId}`).classList.remove('hidden');
-    document.getElementById(`tab-${tabId}`).className = "flex-1 py-4 text-center text-sm transition-colors tab-active";
+    const tabs = ['schedule', 'budget', 'guide'];
+    tabs.forEach(tab => {
+        const el = document.getElementById(`tab-${tab}`);
+        if (el) el.className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
+    });
+
+    const selectedView = document.getElementById(`view-${tabId}`);
+    if (selectedView) {
+        selectedView.classList.remove('hidden');
+    }
+
+    const selectedTab = document.getElementById(`tab-${tabId}`);
+    if (selectedTab) {
+        selectedTab.className = "flex-1 py-4 text-center text-sm transition-colors tab-active";
+    }
 }
 
 function renderDaySelector() {
