@@ -159,13 +159,11 @@ function switchTab(tabId) {
     document.getElementById('view-schedule').classList.add('hidden');
     document.getElementById('view-budget').classList.add('hidden');
     document.getElementById('view-guide').classList.add('hidden');
-    document.getElementById('view-dedication').classList.add('hidden');
     
     // Reset tab styles
     document.getElementById('tab-schedule').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
     document.getElementById('tab-budget').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
     document.getElementById('tab-guide').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
-    document.getElementById('tab-dedication').className = "flex-1 py-4 text-center text-sm transition-colors tab-inactive";
 
     // Show selected
     document.getElementById(`view-${tabId}`).classList.remove('hidden');

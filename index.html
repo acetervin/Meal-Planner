@@ -45,9 +45,6 @@
             <button onclick="switchTab('guide')" id="tab-guide" class="flex-1 py-4 text-center text-sm transition-colors tab-inactive">
                 🛒 Shopping & Tips
             </button>
-            <button onclick="switchTab('dedication')" id="tab-dedication" class="flex-1 py-4 text-center text-sm transition-colors tab-inactive">
-                ❤️ Dedication
-            </button>
         </nav>
 
         <!-- Main Content Area -->
@@ -221,48 +218,67 @@
                             <p>4. Keep the other half <strong>plain</strong> (boiled only) in the fridge. Fry it fresh on Tuesday or Thursday.</p>
                         </div>
                     </div>
+                <!-- Dedication Section -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-6">A Note for Misha ❤️</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        <!-- Card 1: Short Quote -->
+                        <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-md border border-gray-200 flex items-center justify-center text-center">
+                            <p class="text-lg italic text-gray-600">"You are my today and all of my tomorrows."</p>
+                        </div>
+
+                        <!-- Card 2: Main Message -->
+                        <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center">
+                            <svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   class="w-16 h-16 mx-auto mb-4 opacity-70"
+   viewBox="0 0 645 585"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <g
+     id="layer1">
+    <path
+       d="M 297.29747,550.86823 C 283.52243,535.43191 249.1268,505.33855 220.86277,483.99412 C 137.11867,420.75228 125.72108,411.5999 91.719238,380.29088 C 29.03471,322.57071 2.413622,264.58086 2.5048478,185.95124 C 2.5493594,147.56739 5.1656152,132.77929 15.914734,110.15398 C 34.151433,71.768267 61.014996,43.244667 95.360052,25.799457 C 119.68545,13.443675 131.6827,7.9542046 172.30448,7.7296236 C 214.79777,7.4947896 223.74311,12.449347 248.73919,26.181459 C 279.1637,42.895777 310.47909,78.617167 316.95242,103.99205 L 320.95052,119.66445 L 330.81015,98.079942 C 386.52632,-23.892986 564.40851,-22.06811 626.31244,101.11153 C 645.95011,140.18758 648.10608,223.6247 630.69256,270.6244 C 607.97729,331.93377 565.31255,378.67493 466.68622,450.30098 C 402.0054,497.27462 328.80148,568.34684 323.70555,578.32901 C 317.79007,589.91654 323.42339,580.14491 297.29747,550.86823 z"
+       id="path2417"
+       style="fill:#ff0000" />
+    <g
+       transform="translate(129.28571,-64.285714)"
+       id="g2221" />
+  </g>
+</svg>
+                            <h2 class="text-2xl font-semibold text-gray-800 tracking-tight mb-4">For My Dearest Misha,</h2>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                This planner is a small token of my immense love for you. May it bring a little ease and joy to your days, just as you bring endless happiness to mine.
+                            </p>
+                            <p class="text-gray-700 text-lg font-medium">With all my love, KK.</p>
+                        </div>
+
+                        <!-- Card 3: Misha's Photo (lol.jpeg) -->
+                        <div class="md:col-span-1 bg-white rounded-xl shadow-md border border-gray-200 p-4 flex items-center justify-center min-h-[200px] overflow-hidden">
+                            <img src="images/dedication/lol.jpeg" alt="Misha" class="max-w-full h-auto rounded-lg shadow-sm object-cover">
+                        </div>
+
+                        <!-- Card 5: Second Photo (loll.jpeg) -->
+                        <div class="md:col-span-1 bg-white rounded-xl shadow-md border border-gray-200 p-4 flex items-center justify-center min-h-[200px] overflow-hidden">
+                            <img src="images/dedication/loll.jpeg" alt="Misha 2" class="max-w-full h-auto rounded-lg shadow-sm object-cover">
+                        </div>
+                        
+                        <!-- Card 4: Short Note -->
+                        <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col items-center justify-center text-center">
+                            <p class="text-2xl font-bold text-gray-800">❤️</p>
+                            <p class="text-gray-600 mt-2">My favorite person.</p>
+                        </div>
+
+                    </div>
                 </div>
 
             </section>
 
-            <!-- SECTION: DEDICATION -->
-            <section id="view-dedication" class="hidden space-y-6 animate-fade-in">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                    <!-- Card 1: Short Quote -->
-                    <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-md border border-gray-200 flex items-center justify-center text-center">
-                        <p class="text-lg italic text-gray-600">"You are my today and all of my tomorrows."</p>
-                    </div>
-
-                    <!-- Card 2: Main Message -->
-                    <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center">
-                        <img src="images/dedication/heart.svg" alt="Heart" class="w-16 h-16 mx-auto mb-4 opacity-70">
-                        <h2 class="text-2xl font-semibold text-gray-800 tracking-tight mb-4">For Misha,</h2>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            This planner is a small token of my immense love for you. May it bring a little ease and joy to your days, just as you bring endless happiness to mine.
-                        </p>
-                        <p class="text-gray-700 text-lg font-medium">With all my love, KK.</p>
-                    </div>
-
-                    <!-- Card 3: Misha's Photo (lol.jpeg) -->
-                    <div class="md:col-span-1 bg-white rounded-xl shadow-md border border-gray-200 p-4 flex items-center justify-center min-h-[200px] overflow-hidden">
-                        <img src="images/dedication/lol.jpeg" alt="Misha" class="max-w-full h-auto rounded-lg shadow-sm object-cover">
-                    </div>
-
-                    <!-- Card 5: Second Photo (loll.jpeg) -->
-                    <div class="md:col-span-1 bg-white rounded-xl shadow-md border border-gray-200 p-4 flex items-center justify-center min-h-[200px] overflow-hidden">
-                        <img src="images/dedication/loll.jpeg" alt="Misha 2" class="max-w-full h-auto rounded-lg shadow-sm object-cover">
-                    </div>
-                    
-                    <!-- Card 4: Short Note -->
-                    <div class="md:col-span-1 bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col items-center justify-center text-center">
-                        <p class="text-2xl font-bold text-gray-800">❤️</p>
-                        <p class="text-gray-600 mt-2">My favorite person.</p>
-                    </div>
-
-                </div>
-            </section>
-        </main>
+                    </main>
     </div>
 
     <script src="script.js"></script>
